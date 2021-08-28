@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace app\core;
 
-class Router {
+use app\core\Request;
+
+final class Router {
     /**
      * @var array
      */
-    private array $allRouts = [];
+    private array $routes = [];
 
     /**
      * @var string
@@ -15,21 +17,78 @@ class Router {
     private string $currentUrl;
 
     /**
+     * @var array
+     */
+    private array $params = [];
+
+    /**
      * Router constructor.
      */
     public function __construct()
     {
-        $allRouts = require  "../config/routs.php";
+        $request          = new Request();
+        $this->currentUrl = $request->getCurrentUrl();
+        $paths            = require  "../config/routs.php";
+        foreach ($paths as $key => $path) {
+            $this->preparingUrl($key, $path);
+        }
     }
 
     /**
-     * @param string $currentUrl
+     * @return bool
      */
-    public function setCurrentUrl(string $currentUrl): void
+    private function preparingRouterParameters(): bool
     {
-        var_dump();
-        $this->currentUrl = $currentUrl;
+        foreach ($this->routes as $route => $params) {
+
+            if (preg_match($route, $this->currentUrl, $matches)) {
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        if (is_numeric($match)) {
+                            $match = (int) $match;
+                        }
+                        $params[$key] = $match;
+                    }
+                }
+                $this->params = $params;
+                return true;
+            }
+        }
+        return false;
     }
 
+    /**
+     * @return void
+     */
+    public function run(): void
+    {
+       if ($this->preparingRouterParameters() !== false) {
+           $path = 'app\Http\Controllers\\'.ucfirst($this->params['controller']).'Controller';
+           if (class_exists($path)) {
+               $action = $this->params['action'];
+               if (method_exists($path, $action)) {
+                   $controller = new $path($this->params);
+                   $controller->$action();
+               } else {
+                    echo 404;
+               }
+           } else {
+               echo 404;
+           }
+       } else {
+           echo 404;
+       }
+    }
 
+    /**
+     * @param $route
+     * @param $params
+     * @return void
+     */
+    private function preparingUrl($route, $params): void
+    {
+        $route                = preg_replace('/{([a-z]+):([^\}]+)}/', '(?P<\1>\2)', $route);
+        $route                = '#^'.$route.'$#';
+        $this->routes[$route] = $params;
+    }
 }

@@ -41,11 +41,11 @@ class Request
     public function __construct()
     {
 
-        $this->get = $_GET;
-        $this->post = $_POST;
-        $this->server = $_SERVER;
-        $this->cookie = $_COOKIE;
-        $this->file = $_FILES;
+        $this->get     = $_GET;
+        $this->post    = $_POST;
+        $this->server  = $_SERVER;
+        $this->cookie  = $_COOKIE;
+        $this->file    = $_FILES;
         $this->session = $_SESSION;
     }
 
@@ -98,6 +98,16 @@ class Request
     public function getServerData(string $arrayKey): array|string
     {
         return $this->server[$arrayKey];
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentUrl(): string
+    {
+        $currentUrl = $this->getServerData('REQUEST_URI');
+        $currentUrl = trim($currentUrl, '/');
+        return $currentUrl;
     }
 
 }
