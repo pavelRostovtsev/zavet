@@ -2,16 +2,14 @@
 
 return [
 	'' => [
-	    'controller' => 'user',
+	    'controller' => 'article',
         'action'     => 'index',
+        'middleware' => '',
     ],
     'admin' => [
         'controller' => 'admin',
-        'action'     => 'index'
-    ],
-    'show/{page:\d+}' => [
-        'controller' => 'user',
-        'action' => 'index',
+        'action'     => 'index',
+        'middleware' => '',
     ],
 
 ];

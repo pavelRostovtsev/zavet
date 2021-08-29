@@ -5,7 +5,8 @@ namespace app\core;
 
 use app\core\Request;
 
-final class Router {
+final class Router
+{
     /**
      * @var array
      */
@@ -63,7 +64,7 @@ final class Router {
     public function run(): void
     {
        if ($this->preparingRouterParameters() !== false) {
-           $path = 'app\Http\Controllers\\'.ucfirst($this->params['controller']).'Controller';
+           $path = 'app\http\Controllers\\'.ucfirst($this->params['controller']).'Controller';
            if (class_exists($path)) {
                $action = $this->params['action'];
                if (method_exists($path, $action)) {
