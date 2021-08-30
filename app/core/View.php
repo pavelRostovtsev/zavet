@@ -7,8 +7,9 @@ use JetBrains\PhpStorm\NoReturn;
 
 final class View
 {
-    private $path;
-    private $layout = 'default';
+    private string $path;
+    private string $layout = 'default';
+    const PATH_TO_TEMPLATES = '/var/www/html/zavet/app/views/';
 
     /**
      * View constructor.
@@ -17,22 +18,25 @@ final class View
     public function __construct(private array $route)
     {
         $this->path = $route['controller'].'/'.$route['action'];
+
     }
 
     /**
      * @param $title
      * @param array $vars
      */
+    #[NoReturn]
     public function render($title, $vars = [])
     {
         extract($vars);
-        $path = 'app/views/'.$this->path.'.php';
-        var_dump($path);die;
+        $path = self::PATH_TO_TEMPLATES . $this->path.'.php';
+
         if (file_exists($path)) {
+
             ob_start();
             require $path;
             $content = ob_get_clean();
-            require 'app/views/layouts/'.$this->layout.'.php';
+            require self::PATH_TO_TEMPLATES . 'layouts/'.$this->layout.'.php';
         }
     }
 
@@ -40,7 +44,7 @@ final class View
     public static function errorCode($code)
     {
         http_response_code($code);
-        $path = 'app/views/errors/'.$code.'.php';
+        $path = self::PATH_TO_TEMPLATES . 'errors/'.$code.'.php';
         if (file_exists($path)) {
             require $path;
         }
