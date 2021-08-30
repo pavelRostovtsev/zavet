@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+<h1>default</h1>
 <?=$content?>
 </body>
 </html>
