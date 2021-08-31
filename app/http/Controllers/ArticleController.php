@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace app\http\controllers;
 
 use app\core\CoreController;
+use JetBrains\PhpStorm\NoReturn;
 
 class ArticleController extends CoreController
 {
@@ -12,6 +13,7 @@ class ArticleController extends CoreController
         parent::__construct($route);
     }
 
+    #[NoReturn]
     public function index()
     {
         $vars = ['test'];
