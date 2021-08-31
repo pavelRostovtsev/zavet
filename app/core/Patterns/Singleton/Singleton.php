@@ -34,6 +34,6 @@ abstract class Singleton
         if (!isset(self::$instances[$subclass])){
             self::$instances[$subclass] = new static();
         }
-        return self::$instances[$subclass];
+        return static::$instances[$subclass];
     }
 }

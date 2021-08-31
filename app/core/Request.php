@@ -75,29 +75,32 @@ class Request
 
     /**
      * @param string $arrayKey
-     * @return array|string
+     * @param null $default
+     * @return array|string|null
      */
-    public function getPostData(string $arrayKey): array|string
+    public function getPostData(string $arrayKey, $default = null): array|string|null
     {
-        return $this->post[$arrayKey];
+        return isset($this->post[$arrayKey]) ? $this->post[$arrayKey] : $default;
+
     }
 
     /**
      * @param string $arrayKey
-     * @return array|string
+     * @param null $default
+     * @return string|null
      */
-    public function getGetData(string $arrayKey): array|string
+    public function getGetData(string $arrayKey, $default = null): string|null
     {
-        return $this->get[$arrayKey];
+        return isset($this->get[$arrayKey]) ? $this->get[$arrayKey] : $default;
     }
 
     /**
      * @param string $arrayKey
-     * @return array|string
+     * @return string|null
      */
-    public function getServerData(string $arrayKey): array|string
+    public function getServerData(string $arrayKey): string|null
     {
-        return $this->server[$arrayKey];
+        return isset($this->server[$arrayKey]) ? $this->server[$arrayKey] : null;
     }
 
     /**

@@ -37,8 +37,8 @@ abstract class CoreController
             throw new Exception('Модели не существует' . '  ' . $path);
         }
         $db = DB::getInstance()->getPDO();
-
-        return new $path($db);
+        $dbDriver = new DBDriver($db);
+        return new $path($dbDriver);
 
     }
 

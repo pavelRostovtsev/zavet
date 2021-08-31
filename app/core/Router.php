@@ -23,12 +23,18 @@ final class Router
     private array $params = [];
 
     /**
+     * @var Request
+     */
+    private Request $request;
+
+    /**
      * Router constructor.
      */
     public function __construct()
     {
-        $request          = new Request();
-        $this->currentUrl = $request->getCurrentUrl();
+        $this->request    = new Request();
+        $this->currentUrl = $this->request->getCurrentUrl();
+        $this->currentUrl = strstr($this->currentUrl, '?', true);
         $paths            = require  "../config/routs.php";
         foreach ($paths as $key => $path) {
             $this->preparingUrl($key, $path);
@@ -68,7 +74,7 @@ final class Router
            if (class_exists($path)) {
                $action = $this->params['action'];
                if (method_exists($path, $action)) {
-                   $controller = new $path($this->params);
+                   $controller = new $path($this->params, $this->request);
                    $controller->$action();
                } else {
                     echo 404;

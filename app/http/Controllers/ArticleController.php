@@ -4,11 +4,17 @@ declare(strict_types=1);
 namespace app\http\controllers;
 
 use app\core\CoreController;
+use app\core\Request;
 use JetBrains\PhpStorm\NoReturn;
 
 class ArticleController extends CoreController
 {
-    public function __construct(protected array $route)
+    /**
+     * ArticleController constructor.
+     * @param array $route
+     * @param Request $request
+     */
+    public function __construct(protected array $route, private Request $request)
     {
         parent::__construct($route);
     }
@@ -16,7 +22,13 @@ class ArticleController extends CoreController
     #[NoReturn]
     public function index()
     {
-        $vars = ['test'];
-        $this->getView()->render('Главная страница', $vars);
+        $page     = $this->request->getGetData('page');
+        $sortBy   = $this->request->getGetData('sortBy', 'title');
+        $sort     = $this->request->getGetData('sort', 'DESC');
+        $articles =  $this->model->findAll($page, $sortBy, $sort);
+        dd($articles);
+        $this->getView()->render('All records', $articles);
     }
+
+
 }
