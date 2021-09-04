@@ -88,9 +88,8 @@ class DBDriver
      * @param $table
      * @param array $params
      * @param array $where
-     * @return bool
      */
-    public function update($table, array $params, $where = []): bool
+    public function update($table, array $params, $where = [])
     {
         if (!empty($params) ) {
             $i = 1;
@@ -105,7 +104,6 @@ class DBDriver
                 $sql = sprintf('UPDATE %s SET %s', $table,$updateValue);
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->execute();
-                return true;
             } elseif(count($where) === 3) {
 
                 $operators = ["=" , '>', '<' , '>=', '<=' ];

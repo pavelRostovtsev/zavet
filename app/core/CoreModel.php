@@ -5,6 +5,7 @@ namespace app\core;
 
 use \app\core\DBDriver;
 
+
 abstract class CoreModel
 {
     protected string $table ;
@@ -39,9 +40,9 @@ abstract class CoreModel
         return $this->table;
     }
     /**
-     * @return PDO
+     * @return \app\core\DBDriver
      */
-    protected function getDbDriver(): PDO
+    protected function getDbDriver(): \app\core\DBDriver
     {
         return $this->dbDriver;
     }
@@ -63,12 +64,12 @@ abstract class CoreModel
     }
 
     /**
-     * @param string $page
+     * @param string|null $page
      * @param string $parameter
      * @param string $sort
      * @return mixed
      */
-    public function findAll(string $page, string $parameter, string $sort): mixed
+    public function findAll(string|null $page, string $parameter, string $sort): mixed
     {
         $max = 8;
         $params = [
@@ -85,10 +86,11 @@ abstract class CoreModel
      * @param $post
      * @return int
      */
-    public function insert($post): int
+    public function create($post): int
     {
         $params = [];
-        $dataPost = $_POST;
+        $dataPost = $post;
+
         foreach ($dataPost as $key => $data) {
             if ($key === 'csrf') continue;
             $params[$key] = $data;

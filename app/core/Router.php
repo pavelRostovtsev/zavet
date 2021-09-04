@@ -34,7 +34,8 @@ final class Router
     {
         $this->request    = new Request();
         $this->currentUrl = $this->request->getCurrentUrl();
-        $this->currentUrl = strstr($this->currentUrl, '?', true);
+        $this->currentUrl = str_starts_with($this->currentUrl, '?') ?
+            strstr($this->currentUrl, '?', true) : $this->currentUrl;
         $paths            = require  "../config/routs.php";
         foreach ($paths as $key => $path) {
             $this->preparingUrl($key, $path);
