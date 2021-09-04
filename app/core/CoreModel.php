@@ -6,7 +6,7 @@ namespace app\core;
 use \app\core\DBDriver;
 
 
-abstract class CoreModel
+class CoreModel
 {
     protected string $table ;
 

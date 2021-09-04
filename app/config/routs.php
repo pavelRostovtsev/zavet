@@ -43,15 +43,16 @@ return [
         'middleware' => '',
     ],
 
+    'admin/registration' => [
+        'controller' => 'admin',
+        'action' => 'registration',
+    ],
 
-    'admin/sign-in' => [
+    'admin/login' => [
         'controller' => 'admin',
-        'action' => 'signIn',
+        'action' => 'login',
     ],
-    'admin/authorization' => [
-        'controller' => 'admin',
-        'action' => 'authorization',
-    ],
+
     'admin/logOut' => [
         'controller' => 'admin',
         'action' => 'logOut',

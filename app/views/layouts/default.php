@@ -17,17 +17,18 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Admin Panel</a></li>
+                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="#" class="nav-link px-2 text-secondary">Create Post</a></li>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                <input name="title" type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <a href="/admin/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+                <a href="/admin/registration"><button type="button" class="btn btn-warning me-2">Registration</button></a>
+                <a href="/admin/LogOut"><button type="button" class="btn btn-danger">LogOut</button></a>
             </div>
         </div>
     </div>

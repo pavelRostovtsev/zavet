@@ -2,7 +2,7 @@
 
 use app\core\Router;
 
-require_once "../core/Support/debug.php";
+require_once "../core/SupportFunction/debug.php";
 
 session_start();
 error_reporting(E_ALL);
