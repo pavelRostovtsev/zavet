@@ -18,6 +18,8 @@ class ArticleController extends CoreController
 {
     private bool $statusAuth;
 
+    private const FILE_NAME = 'img';
+
     /**
      * ArticleController constructor.
      * @param array $route
@@ -80,8 +82,14 @@ class ArticleController extends CoreController
 
                 Redirect::redirect('articles/create');
             }
+
             $articleData = $this->request->getAllPostsArray();
-            $fileDriver = new FileDriver($this->request->getFileData());
+            $fileDriver = new FileDriver($this->request->getFileData(self::FILE_NAME));
+            if ($fileDriver->isFile()) {
+                $imgName = $fileDriver->saveFile();
+                $articleData[self::FILE_NAME] = $imgName;
+            }
+            $articleData['user_id'] = Session::get('user');
             $this->model->create($articleData);
             Flash::flash('success', 'The Post Created');
             Redirect::redirect('');

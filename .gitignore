@@ -1,7 +1,1 @@
 .idea
-mysql
-nginx
-php-fpm
-.env
-docker-compose.yml
-start.sh

@@ -139,11 +139,12 @@ class Request
     }
 
     /**
+     * @param $fileName
      * @return array
      */
-    public function getFileData(): array
+    public function getFileData($fileName): array
     {
-        return $this->file;
+        return $this->file[$fileName];
     }
 
     /**

@@ -1,0 +1,59 @@
+version: '3'
+
+networks:
+  docker:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${HOST_IP}
+
+services:
+  nginx:
+    build:
+      context: nginx
+      args:
+        UID: ${UID}
+    container_name: nginx
+    working_dir: /var/www/html
+    networks:
+      - docker
+    volumes:
+      - ../:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+    ports:
+      - ${PORT_HTTP}:80
+
+  php-fpm:
+    build:
+      context: php-fpm
+      args:
+        UID: ${UID}
+    container_name: php-fpm
+    working_dir: /var/www/html
+    networks:
+      - docker
+    volumes:
+      - ../:/var/www/html
+      - ./php-fpm/home/:/home/appuser
+      - ./php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+    environment:
+      XDEBUG_CONFIG: "remote_host=172.80.3.1 profiler_enable_trigger=1 profiler_output_dir=/var/www/html remote_enable=1 remote_port=9001"
+      PHP_IDE_CONFIG: "serverName=Docker"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    networks:
+      - docker
+    volumes:
+      - ./mysql/database:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - ${PORT_MYSQL}:3306
