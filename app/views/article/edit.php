@@ -16,10 +16,7 @@
                 <label for="text">Text</label>
                 <textarea name="text" type="text" class="form-control" id="text"><?=$article['text']?></textarea>
             </div>
-
-
-            <!--            <input type="hidden" name="csrf" value="--><?//=$csrf;?><!--">-->
-
+            <input type="hidden" name="csrf" value="<?=$csrf;?>">
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
     </div>

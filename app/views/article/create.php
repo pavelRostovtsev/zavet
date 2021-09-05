@@ -1,6 +1,6 @@
 <div class="container-full d-flex justify-content-md-center mt-5">
     <div class="row col-6">
-        <form action="/articles/store" method="post">
+        <form action="/articles/store" method="post" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label for="title">Title</label>
@@ -17,8 +17,12 @@
                 <textarea name="text" type="text" class="form-control" id="text"> </textarea>
             </div>
 
+            <div class="form-group mt-2">
+                <label for="img">img</label>
+                <input name="img" type="file" class="form-control" id="img" >
+            </div>
 
-            <!--            <input type="hidden" name="csrf" value="--><?//=$csrf;?><!--">-->
+            <input type="hidden" name="csrf" value="<?=$csrf;?>">
 
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>

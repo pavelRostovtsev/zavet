@@ -4,58 +4,59 @@ return [
 	'' => [
 	    'controller' => 'article',
         'action'     => 'index',
-        'middleware' => '',
     ],
 
     'articles/show/{id:\d+}' => [
         'controller' => 'article',
         'action'     => 'show',
-        'middleware' => '',
     ],
 
     'articles/create' => [
         'controller' => 'article',
         'action'     => 'create',
-        'middleware' => '',
+        'middleware' => 'article',
     ],
 
     'articles/store' => [
         'controller' => 'article',
         'action'     => 'store',
-        'middleware' => '',
+        'middleware' => 'article',
     ],
 
     'articles/edit/{id:\d+}' => [
         'controller' => 'article',
         'action'     => 'edit',
-        'middleware' => '',
+        'middleware' => 'article',
     ],
 
     'articles/update/{id:\d+}' => [
         'controller' => 'article',
         'action'     => 'update',
-        'middleware' => '',
+        'middleware' => 'admin',
     ],
 
     'articles/destroy/{id:\d+}' => [
         'controller' => 'article',
-        'action' => 'destroy',
-        'middleware' => '',
+        'action'     => 'destroy',
+        'middleware' => 'admin',
     ],
 
     'admin/registration' => [
         'controller' => 'admin',
-        'action' => 'registration',
+        'action'     => 'registration',
+        'middleware' => 'admin',
     ],
 
     'admin/login' => [
         'controller' => 'admin',
-        'action' => 'login',
+        'action'     => 'login',
+        'middleware' => 'admin',
     ],
 
     'admin/logOut' => [
         'controller' => 'admin',
-        'action' => 'logOut',
+        'action'     => 'logOut',
+
     ],
 
 ];

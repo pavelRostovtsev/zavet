@@ -95,6 +95,14 @@ class Request
     }
 
     /**
+     * @return int
+     */
+    public function getCurrentPage(): int
+    {
+        return isset($this->get['page']) ? $this->get['page'] : 1;
+    }
+
+    /**
      * @param string $arrayKey
      * @return string|null
      */
@@ -111,6 +119,39 @@ class Request
         $currentUrl = $this->getServerData('REQUEST_URI');
         $currentUrl = trim($currentUrl, '/');
         return $currentUrl;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPost(): bool
+    {
+        return $this->post ? true : false;
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function setPostData(string $name, string $value): void
+    {
+        $this->post[$name] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFileData(): array
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return array
+     */
+    public function isFIle(): array
+    {
+        return $this->file;
     }
 
 }

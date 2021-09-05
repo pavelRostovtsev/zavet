@@ -60,7 +60,7 @@ class CoreModel
      */
     public function findCount(): int
     {
-        return $this->dbDriver->column("SELECT COUNT(id) FROM {$this->table}");
+        return (int)($this->dbDriver->column("SELECT COUNT(id) FROM {$this->table}"));
     }
 
     /**
@@ -71,7 +71,7 @@ class CoreModel
      */
     public function findAll(string|null $page, string $parameter, string $sort): mixed
     {
-        $max = 8;
+        $max = 10;
         $params = [
             'max' => $max,
             'start' => ((($page ?? 1) - 1) * $max),

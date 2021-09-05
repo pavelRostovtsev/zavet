@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace app\core;
 
@@ -9,16 +10,17 @@ class Flash
     /**
      * @param $name
      * @param string $string
-     * @return mixed
+     * @return null|string|array|int
      */
-    public static function flash($name, $string = ''): mixed
+    public static function flash($name, $string = ''): null|string|array|int
     {
         if(Session::exists($name) && Session::get($name) !=='') {
             $session = Session::get($name);
             Session::delete($name);
             return $session;
         } else {
-            Session::put($name,$string);
+             Session::put($name,$string);
+             return null;
         }
     }
 
@@ -27,7 +29,9 @@ class Flash
      * @return bool
      */
     public static function existsFlash($name): bool
-    {
-        return $_SESSION[$name] == '';
+    {   if (array_key_exists($name, $_SESSION)) {
+            return ($_SESSION[$name] == '') ? true:false;
+        }
+        return true;
     }
 }

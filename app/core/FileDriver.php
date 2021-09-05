@@ -5,5 +5,8 @@ namespace app\core;
 
 class FileDriver
 {
-    public function __construct(private $file){}
+    public function __construct(private array $file)
+    {
+        dd($file);
+    }
 }

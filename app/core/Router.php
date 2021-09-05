@@ -75,8 +75,10 @@ final class Router
            if (class_exists($path)) {
                $action = $this->params['action'];
                if (method_exists($path, $action)) {
+                   $this->connectionMiddleware();
                    $controller = new $path($this->params, $this->request);
                    $controller->$action();
+
                } else {
                     echo 404;
                }
@@ -98,5 +100,17 @@ final class Router
         $route                = preg_replace('/{([a-z]+):([^\}]+)}/', '(?P<\1>\2)', $route);
         $route                = '#^'.$route.'$#';
         $this->routes[$route] = $params;
+    }
+
+    private function connectionMiddleware()
+    {
+        if (array_key_exists('middleware',$this->params)) {
+            $path = 'app\http\Middleware\\'.ucfirst($this->params['middleware']).'Middleware';
+
+            if (class_exists($path)) {
+                $middleware = new $path($this->request);
+
+            }
+        }
     }
 }

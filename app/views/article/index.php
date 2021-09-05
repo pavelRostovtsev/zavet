@@ -13,8 +13,10 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="articles/show/<?=$article['id']?>"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                                <a href="articles/edit/<?=$article['id']?>"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
-                                <a href="articles/delete/<?=$article['id']?>"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                                <?if($statusAuth === true) :?>
+                                    <a href="articles/edit/<?=$article['id']?>"><button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                    <a href="articles/destroy/<?=$article['id']?>"><button type="button" class="btn btn-sm btn-outline-secondary">Delete</button></a>
+                                <?php endif; ?>
                             </div>
                             <small class="text-muted"><?=$article['created_at']?></small>
                         </div>
